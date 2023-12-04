@@ -13,6 +13,7 @@ function App() {
   const[activeMemeIndex,setActiveMemeIndex]=useState(0);
   const[memeText,setMemeText]=useState([]);
   const[textEdit,setTextEdit]=useState(false);
+  
   const textRefs = useRef(memeText.map(() => createRef()));
 
   useEffect(() => {
@@ -48,7 +49,12 @@ function App() {
 
   const addText = ()=>{
     const newText=prompt("Add text:");
-    setMemeText([...memeText,newText]);
+    const newMemeText = {
+      text:newText,
+      fontSize:30,
+      color:"black"
+    }
+    setMemeText([...memeText,newMemeText]);
   }
 
  function drop(ev) {
