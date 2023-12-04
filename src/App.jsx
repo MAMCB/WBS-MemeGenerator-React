@@ -14,7 +14,7 @@ function App() {
   const[memeText,setMemeText]=useState([]);
   const[textEdit,setTextEdit]=useState(false);
   
-  const textRefs = useRef(memeText.map(() => createRef()));
+  
 
   useEffect(() => {
     axios.get("https://api.imgflip.com/get_memes").then(response=>setMemes(response.data.data.memes)).catch(e=>console.log(e));
@@ -28,7 +28,8 @@ function App() {
   },[memes])
 
   useEffect(()=>{
-    textRefs.current = memeText.map(() => createRef());
+    
+    console.log(memeText);
   },[memeText]);
 
 
@@ -95,7 +96,7 @@ const editText =()=>{
         <div>
           {memeText.length > 0 &&
             memeText.map((text, index) => (
-              <TextBubble key={index} text={text} textRef={textRefs.current[index]} />
+              <TextBubble key={index} text={text}  />
             ))}
           <div>
             <button onClick={addText}>Add text</button>
@@ -115,7 +116,7 @@ const editText =()=>{
                 setMemeText={setMemeText}
                 texts={memeText}
                 setTextEdit={setTextEdit}
-                textRefs={textRefs}
+                
               />
             )}
           </div>
