@@ -1,35 +1,62 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
+import { useState,useEffect } from 'react'
+import ControlledCarousel from './Components/ControlledCarousel'
+import axios from 'axios';
+import Spinner from 'react-bootstrap/Spinner';
+
 import './App.css'
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [memes,setMemes]=useState([]);
+  const[activeMemeIndex,setActiveMemeIndex]=useState(0);
+
+  useEffect(() => {
+    axios.get("https://api.imgflip.com/get_memes").then(response=>setMemes(response.data.data.memes)).catch(e=>console.log(e));
+        
+       
+    
+  }, []);
+
+  useEffect(()=>{
+    chooseRandom();
+  },[memes])
+
+
+
+
+  const chooseRandom = ()=>{
+    const randomIndex = Math.floor(Math.random()*memes.length);
+    console.log(memes.length);
+    console.log(randomIndex);
+    setActiveMemeIndex(randomIndex)
+
+  }
+
+  const selectMeme = (index)=>{
+    setActiveMemeIndex(index);
+    
+  }
+  
 
   return (
     <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
+      <h1>Meme Generator</h1>
+      <p>Choose a template and create your own unique meme!</p>
+      {memes.length > 0 ? (
+        <div>
+          <img
+            src={memes[activeMemeIndex].url}
+            alt={memes[activeMemeIndex].name}
+          />
+          <h2>Choose a meme or...</h2>
+          <button onClick={chooseRandom}>Pick a random</button>
+
+          <ControlledCarousel items={memes} selectMeme={selectMeme} />
+        </div>
+      ) : (
+        <Spinner animation="border" variant="primary" />
+      )}
     </>
-  )
+  );
 }
 
 export default App

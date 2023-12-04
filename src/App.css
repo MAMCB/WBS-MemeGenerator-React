@@ -40,3 +40,34 @@
 .read-the-docs {
   color: #888;
 }
+
+img{
+  width:50rem;
+  border: 2px solid black;
+  border-radius: 10px;
+  
+}
+
+.selectedMeme{
+  margin:2rem 0;
+}
+
+.carousel{
+  color:black;
+  font-weight: 600;
+  background-color: antiquewhite;
+  border-radius: 10px;
+}
+
+.carouselImg{
+  height: 30rem;
+  width: 30rem;
+}
+
+.carousel-item{
+  background-color: #888;
+}
+
+button{
+  margin:2rem;
+}
