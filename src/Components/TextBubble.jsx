@@ -1,6 +1,6 @@
 
 
-const TextBubble = ({text}) => {
+const TextBubble = ({text,textRef}) => {
 
     const handleDragStart = (e)=>{
         e.dataTransfer.setData("text",e.target.id);
@@ -11,6 +11,7 @@ const TextBubble = ({text}) => {
       draggable="true"
       onDragStart={handleDragStart}
       className="textBubble"
+      ref={textRef}
     >
       {text}
     </span>

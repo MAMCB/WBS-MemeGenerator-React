@@ -1,6 +1,10 @@
 import {v4 as uuidv4} from "uuid";
 
-const TextEditMenu = ({ texts, setMemeText, setTextEdit }) => {
+
+const TextEditMenu = ({ texts, setMemeText, setTextEdit,textRefs }) => {
+
+     
+
   const handleDelete = (e) => {
     const newTexts = texts.filter((text) => text != texts[e.target.id]);
     setMemeText(newTexts);
@@ -9,6 +13,17 @@ const TextEditMenu = ({ texts, setMemeText, setTextEdit }) => {
         setTextEdit(false);
     }
   };
+
+  const handleEdit =(e)=>{
+    const index = parseInt(e.target.id-0.5);
+    const ref = textRefs.current[index];
+    if(ref.current)
+    {
+        ref.current.style.color="red";
+    }
+
+
+  }
   return (
     <div>
       <ul>
@@ -18,7 +33,9 @@ const TextEditMenu = ({ texts, setMemeText, setTextEdit }) => {
             <button id={index} onClick={handleDelete}>
               Delete
             </button>
-            <button>Edit</button>
+            <button id={index+0.5} onClick={handleEdit}>
+              Edit
+            </button>
           </li>
         ))}
       </ul>

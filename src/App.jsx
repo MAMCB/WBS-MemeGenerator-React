@@ -1,9 +1,10 @@
-import { useState,useEffect } from 'react'
+import { useState, useEffect, useRef, createRef } from "react";
 import ControlledCarousel from './Components/ControlledCarousel'
 import axios from 'axios';
 import Spinner from 'react-bootstrap/Spinner';
 import TextBubble from './Components/TextBubble';
 import TextEditMenu from './Components/TextEditMenu';
+
 
 import './App.css'
 
@@ -12,6 +13,7 @@ function App() {
   const[activeMemeIndex,setActiveMemeIndex]=useState(0);
   const[memeText,setMemeText]=useState([]);
   const[textEdit,setTextEdit]=useState(false);
+  const textRefs = useRef(memeText.map(() => createRef()));
 
   useEffect(() => {
     axios.get("https://api.imgflip.com/get_memes").then(response=>setMemes(response.data.data.memes)).catch(e=>console.log(e));
@@ -23,6 +25,10 @@ function App() {
   useEffect(()=>{
     chooseRandom();
   },[memes])
+
+  useEffect(()=>{
+    textRefs.current = memeText.map(() => createRef());
+  },[memeText]);
 
 
 
@@ -83,7 +89,7 @@ const editText =()=>{
         <div>
           {memeText.length > 0 &&
             memeText.map((text, index) => (
-              <TextBubble key={index} text={text} />
+              <TextBubble key={index} text={text} textRef={textRefs.current[index]} />
             ))}
           <div>
             <button onClick={addText}>Add text</button>
@@ -103,6 +109,7 @@ const editText =()=>{
                 setMemeText={setMemeText}
                 texts={memeText}
                 setTextEdit={setTextEdit}
+                textRefs={textRefs}
               />
             )}
           </div>
