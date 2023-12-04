@@ -16,7 +16,7 @@ const ControlledCarousel = ({ items, selectMeme }) => {
   }
 
   return (
-    <Carousel activeIndex={index} onSelect={handleSelect}>
+    <Carousel className="carouselDiv" activeIndex={index} onSelect={handleSelect}>
       {items.map((item,i) => (
         <Carousel.Item key={item.id}>
           <img id={i} onClick={handleImageClick} className="carouselImg" src={item.url} alt={item.name} />
