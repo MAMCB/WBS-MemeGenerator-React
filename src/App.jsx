@@ -116,6 +116,7 @@ const editText =()=>{
                 setMemeText={setMemeText}
                 texts={memeText}
                 setTextEdit={setTextEdit}
+                textSettings={memeText}
                 
               />
             )}

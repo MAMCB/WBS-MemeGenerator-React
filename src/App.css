@@ -103,3 +103,19 @@ ul{
 .carouselDiv{
   width:50rem;
 }
+
+.textList{
+  background-color: #888;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  border:1px solid black;
+  margin: 1rem;
+  border-radius: 10px;
+  box-shadow: 5px 10px rgb(70, 69, 69);
+}
+
+.textList>h4{
+  text-transform: uppercase;
+}
+
